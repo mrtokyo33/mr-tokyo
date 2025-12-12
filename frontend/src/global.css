@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+
+  --color-tokyo-bg: #050508;
+  
+  --color-tokyo-surface: #0f0e17;
+  
+  --color-tokyo-highlight: #1a1a2e;
+  
+  --color-tokyo-accent: #7c3aed;
+  
+  --color-tokyo-text: #e2e8f0;
+  
+  --color-tokyo-muted: #94a3b8;
+
+  --animate-spin-slow: spin 4s linear infinite;
+  --animate-float: float 3s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+}
+
+body {
+  background-color: var(--color-tokyo-bg);
+  color: var(--color-tokyo-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; /* Vibe hacker */
+  -webkit-font-smoothing: antialiased;
+}
