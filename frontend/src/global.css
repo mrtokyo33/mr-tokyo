@@ -1,19 +1,84 @@
 @import "tailwindcss";
 
+/* Plugin de animação obrigatório para o Shadcn */
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* --- PALETA TOKYO VOID --- */
+  
+  /* Fundo principal (#050508) */
+  --background: 240 10% 2.5%;
+  --foreground: 210 20% 98%;
+
+  /* Header e Superfícies (#0f0e17) */
+  --card: 245 10% 7%;
+  --card-foreground: 210 20% 98%;
+  
+  --popover: 245 10% 7%;
+  --popover-foreground: 210 20% 98%;
+
+  /* Roxo Elétrico (#7c3aed) */
+  --primary: 263 80% 60%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Highlight (#1a1a2e) */
+  --secondary: 240 15% 15%;
+  --secondary-foreground: 210 20% 98%;
+
+  /* Elementos sutis */
+  --muted: 240 15% 15%;
+  --muted-foreground: 215 15% 65%;
+  
+  --accent: 240 15% 15%;
+  --accent-foreground: 210 20% 98%;
+
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 210 20% 98%;
+
+  --border: 240 15% 15%;
+  --input: 240 15% 15%;
+  --ring: 263 80% 60%;
+
+  --radius: 0.5rem;
+}
+
 @theme {
+  /* Mapeamento Shadcn -> Tailwind v4 */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
 
-  --color-tokyo-bg: #050508;
-  
-  --color-tokyo-surface: #0f0e17;
-  
-  --color-tokyo-highlight: #1a1a2e;
-  
-  --color-tokyo-accent: #7c3aed;
-  
-  --color-tokyo-text: #e2e8f0;
-  
-  --color-tokyo-muted: #94a3b8;
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 
+  /* Animações Customizadas */
   --animate-spin-slow: spin 4s linear infinite;
   --animate-float: float 3s ease-in-out infinite;
 
@@ -23,9 +88,10 @@
   }
 }
 
+/* Garante a aplicação do tema na página toda */
 body {
-  background-color: var(--color-tokyo-bg);
-  color: var(--color-tokyo-text);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; /* Vibe hacker */
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   -webkit-font-smoothing: antialiased;
 }
