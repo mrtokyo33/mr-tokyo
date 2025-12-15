@@ -1,5 +1,3 @@
-import tokyo01frontImage from "../assets/tokyo01-front.svg";
-
 function Hero() {
     return (
         <div className="text-center">
