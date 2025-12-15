@@ -7,7 +7,6 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // placeholder - implement auth
     console.log('login', { email, password })
   }
 

@@ -1,0 +1,13 @@
+Django==6.0
+django-cors-headers==4.6.0
+
+djangorestframework==3.15.2
+
+psycopg2-binary==2.9.10
+
+python-dotenv==1.0.1
+
+pypandoc==1.15
+pylatexenc==2.10
+
+Pillow==11.0.0

@@ -6,7 +6,7 @@ export default function Devlog() {
 
         <section className="w-full max-w-3xl bg-card p-6 rounded-lg border border-border">
           <h2 className="text-2xl font-semibold text-foreground mb-3">DevLog</h2>
-          <p className="text-muted-foreground">No entries yet — start your first log.</p>
+          <p className="text-muted-foreground">No entries yet.</p>
         </section>
       </main>
     </div>

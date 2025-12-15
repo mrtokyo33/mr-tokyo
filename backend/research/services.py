@@ -1,8 +1,22 @@
+import re
 import pypandoc
 from pylatexenc.latexwalker import LatexWalker, LatexMacroNode
 from .constants import LATEX_MACRO_TITLE
 
 class LatexProcessor:
+    @staticmethod
+    def clean_latex_title(text):
+        if not text:
+            return ""
+        
+        text = re.sub(r'\\[a-zA-Z]+\{([^}]+)\}', r'\1', text)
+        
+        text = text.replace('{', '').replace('}', '')
+        
+        text = re.sub(r'\\[a-zA-Z]+', '', text)
+        
+        return text.strip()
+
     @staticmethod
     def extract_metadata(latex_source):
         walker = LatexWalker(latex_source)
@@ -13,8 +27,9 @@ class LatexProcessor:
                 if isinstance(node, LatexMacroNode) and node.macroname == LATEX_MACRO_TITLE:
                     try:
                         title_node = node.nodeargd.argnlist[0]
-                        clean_title = title_node.latex_verbatim().replace('{', '').replace('}', '')
-                        metadata['title'] = clean_title
+                        raw_title = title_node.latex_verbatim()
+                        
+                        metadata['title'] = LatexProcessor.clean_latex_title(raw_title)
                     except (IndexError, AttributeError):
                         continue
         except Exception as e:

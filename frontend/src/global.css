@@ -1,33 +1,25 @@
 @import "tailwindcss";
 
-/* Plugin de animação obrigatório para o Shadcn */
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* --- PALETA TOKYO VOID --- */
-  
-  /* Fundo principal (#050508) */
   --background: 240 10% 2.5%;
   --foreground: 210 20% 98%;
 
-  /* Header e Superfícies (#0f0e17) */
   --card: 245 10% 7%;
   --card-foreground: 210 20% 98%;
   
   --popover: 245 10% 7%;
   --popover-foreground: 210 20% 98%;
 
-  /* Roxo Elétrico (#7c3aed) */
   --primary: 263 80% 60%;
   --primary-foreground: 0 0% 100%;
 
-  /* Highlight (#1a1a2e) */
   --secondary: 240 15% 15%;
   --secondary-foreground: 210 20% 98%;
 
-  /* Elementos sutis */
   --muted: 240 15% 15%;
   --muted-foreground: 215 15% 65%;
   
@@ -45,7 +37,6 @@
 }
 
 @theme {
-  /* Mapeamento Shadcn -> Tailwind v4 */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   
@@ -78,7 +69,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  /* Animações Customizadas */
   --animate-spin-slow: spin 4s linear infinite;
   --animate-float: float 3s ease-in-out infinite;
 
@@ -86,12 +76,87 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
   }
+
+  @keyframes slide-in-from-bottom {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
 }
 
-/* Garante a aplicação do tema na página toda */
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   -webkit-font-smoothing: antialiased;
+}
+
+.animate-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.slide-in-from-bottom-10 {
+  animation: slide-in-from-bottom 0.5s ease-out;
+}
+
+.prose {
+  max-width: 65ch;
+  color: var(--color-foreground);
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  color: var(--color-foreground);
+  font-weight: 700;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}
+
+.prose code {
+  color: var(--color-primary);
+  font-size: 0.875em;
+}
+
+.prose pre {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1em;
+  overflow-x: auto;
+}
+
+.prose img {
+  border-radius: var(--radius-md);
+}
+
+.prose-lg {
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.prose-invert {
+  color: var(--color-foreground);
 }
