@@ -3,13 +3,19 @@ from django.conf import settings
 from django.utils.text import slugify
 from .constants import TITLE_MAX_LENGTH, DEFAULT_SLUG_TEXT
 from .services import LatexProcessor
+from .validators import validate_latex_file
 
 class Article(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=TITLE_MAX_LENGTH, blank=True)
-    tex_file = models.FileField(upload_to='tex_sources/')
+    
+    tex_file = models.FileField(
+        upload_to='tex_sources/',
+        validators=[validate_latex_file]
+    )
+    
     html_content = models.TextField(blank=True, editable=False)
     metadata = models.JSONField(default=dict, blank=True)
 
@@ -26,9 +32,12 @@ class Article(models.Model):
     def _process_latex_file(self):
         try:
             self.tex_file.open('r')
-            content = self.tex_file.read()
+            content_bytes = self.tex_file.read()
             
-            latex_source = content.decode('utf-8') if isinstance(content, bytes) else content
+            if isinstance(content_bytes, bytes):
+                latex_source = content_bytes.decode('utf-8')
+            else:
+                latex_source = content_bytes
             
             self.tex_file.seek(0)
 
