@@ -10,6 +10,7 @@ function MainHeader() {
         { name: 'Research', icon: <FlaskConical size={18} />, href: '/researches' },
         { name: 'Projects', icon: <Terminal size={18} />, href: '/projects' },
         { name: 'Courses', icon: <BookOpen size={18} />, href: '/courses' },
+        { name: 'Japanese', icon: null, href: '/japanese' },
         { name: 'DevLog', icon: null, href: '/devlog' },
     ];
 
