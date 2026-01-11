@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
 
 MAX_CATEGORY_NAME_SIZE = 70
 MAX_ARTICLE_TITLE_SIZE = 150
@@ -21,10 +22,11 @@ class Category(models.Model):
 
         if qs.exists():
             raise ValidationError({
-                "title": "Already exists an Category with this name"
+                "name": "Already exists an Category with this name"
             })
 
     def save(self, *args, **kwargs):
+        self.full_clean()
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
@@ -40,7 +42,7 @@ class Article(models.Model):
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.DRAFT)
     slug = models.SlugField(unique=True, blank=True)
     
-    content = models.TextField()
+    source_file = models.FileField(upload_to="articles/tex/", blank=True, null=True, validators=[FileExtensionValidator(allowed_extensions=["tex"])])
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -60,9 +62,6 @@ class Article(models.Model):
         return self.status == self.Status.PUBLISHED
     
     def clean(self):
-        if self.status == self.Status.PUBLISHED and not self.content:
-            raise ValidationError("Article cannot be empty")
-        
         slug = slugify(self.title)
 
         qs = Article.objects.filter(slug=slug)
@@ -75,7 +74,18 @@ class Article(models.Model):
             })
 
     def save(self, *args, **kwargs):
+        self.full_clean()
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    @property
+    def tex_content(self):
+        if not self.source_file:
+            return ""
+        
+        self.source_file.open("r")
+        content = self.source_file.read()
+        self.source_file.close()
+        return content
         
