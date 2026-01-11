@@ -1,5 +1,3 @@
-sendo sincero... eu cansei de fingir que sei programar...então tentarei fazer esse projeto sem IA, nao vai ser bonito, e nao vai se o melhor... porém esse projeto mostrará oq aprendi
-
 # STACK
 ## backend:
 - Python
